@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import MealCard from "./components/MealCard";
 import Loader from "./components/Loader";
-// import useDebounce from "./hooks/debounceHook";
 import { useDebounce } from "./hooks/debounceHook";
 
 function App() {
@@ -10,7 +9,7 @@ function App() {
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
 
-  // Debounced search value
+
   const debouncedSearch = useDebounce(search, 400);
 
   useEffect(() => {
@@ -27,9 +26,6 @@ function App() {
         }
 
         const result = await response.json();
-
-        // API structure:
-        // result.data.data = meals array
         setMeals(result?.data?.data || []);
       } catch (err) {
         setError(err.message || "Something went wrong");
@@ -41,7 +37,6 @@ function App() {
     fetchMeals();
   }, []);
 
-  // Filter meals using debounced search
   const filteredMeals = meals.filter((meal) =>
     meal.strMeal
       ?.toLowerCase()
